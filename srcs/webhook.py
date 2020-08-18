@@ -9,8 +9,9 @@ DISCORD_WEBHOOK = os.getenv("WEBHOOK_URL")
 def create_embed(job_name, job_company, job_location, job_link, job_thumbnail):
     """
     Create a discord embed object from the
-    data of a Station F job listing
+    data of a Station F job listing.
     """
+
     embed = DiscordEmbed(title='🛎 NEW JOB FOUND ! 🛎')
     embed.set_description(job_name)
     embed.set_url(job_link)
@@ -22,8 +23,9 @@ def create_embed(job_name, job_company, job_location, job_link, job_thumbnail):
 
 def send_embed(embed):
     """
-    Send an embed to the webhook specified in the .env file
+    Send an embed to the webhook specified in the .env file.
     """
+
     webhook = DiscordWebhook(url=DISCORD_WEBHOOK)
 
     webhook.add_embed(embed)
