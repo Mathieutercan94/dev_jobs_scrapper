@@ -38,6 +38,10 @@ def main():
         jobLocation = jobs.find(
             'li', attrs={'class': 'job-office'}).text.strip()
         print('Location : ' + jobLocation)
+        jobLink = 'https://jobs.stationf.co' + jobs.find(
+            'a', attrs={'class': 'jobs-item-link'}, href=True)['href']
+        print(jobLink)
+        print('\n')
 
 
 if __name__ == "__main__":
