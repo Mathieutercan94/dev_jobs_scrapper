@@ -8,10 +8,7 @@ import re
 from database import is_url_in_database, add_url_in_database
 
 
-URL = 'https://jobs.stationf.co/search?query=dev&page=1&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'
-
-
-def _get_chrome_page_data():
+def _get_chrome_page_data(URL):
     options = Options()
     options.headless = True
     options.add_argument("--window-size=1920,1200")
@@ -26,18 +23,26 @@ def _get_chrome_page_data():
 
 def main():
     print("Starting Station F Jobs Scrapper..")
-
+    page = 1
     while True:
 
         print("Running another iteration..")
 
         # TODO Here: loop on all pages with a random sleep
+        URL = 'https://jobs.stationf.co/search?query=dev{}&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'.format(
+            '&page={}'.format(page) if page != 1 else '')
 
-        page_data = _get_chrome_page_data()
+        page_data = _get_chrome_page_data(URL)
 
         page_soup = BeautifulSoup(page_data, 'html.parser')
         all_jobs_raw = page_soup.find_all(
             'li', attrs={'class': 'ais-Hits-item'})
+
+        if (len(all_jobs_raw) == 0):
+            page = 1
+            print('0 jobs on page {}, restarting from page 1'.format(page))
+            sleep(3600)
+            continue
 
         print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
         for jobs in all_jobs_raw:
@@ -67,8 +72,10 @@ def main():
                 embed = webhook.create_embed(
                     job_name, job_company, job_location, job_link, job_thumbnail)
                 webhook.send_embed(embed)
+                sleep(4)
 
-        sleep(3600)
+        print('page {} finished'.format(page))
+        page += 1
 
 
 if __name__ == "__main__":
