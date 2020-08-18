@@ -27,34 +27,42 @@ def _get_chrome_page_data():
 def main():
 	print("Starting Station F Jobs Scrapper..")
 
-	page_data = _get_chrome_page_data()
+	while True:
 
-	page_soup = BeautifulSoup(page_data, 'html.parser')
-	all_jobs_raw = page_soup.find_all('li', attrs={'class': 'ais-Hits-item'})
+		print("Running another iteration..")
 
-	print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
-	for jobs in all_jobs_raw:
-		job_name = jobs.find('h4', attrs={'class': 'job-title'}).text.strip()
-		print('Job : ' + job_name)
-		job_company = jobs.find(
-			'li', attrs={'class': 'job-company'}).text.strip()
-		print('Company : ' + job_company)
-		job_location = jobs.find(
-			'li', attrs={'class': 'job-office'}).text.strip()
-		print('Location : ' + job_location)
-		job_link = 'https://jobs.stationf.co' + jobs.find(
-			'a', attrs={'class': 'jobs-item-link'}, href=True)['href']
-		print(job_link)
-		job_thumbnail = re.search("(?P<url>https?://[^\s]+)", jobs.find(
-			'div', attrs={'class': 'company-logo'})['style']).group("url")[:-2]
-		print(job_thumbnail)
-		print('\n')
+		#TODO Here: loop on all pages with a random sleep
 
-		if not is_url_in_database(job_link):
-			add_url_in_database(job_link)
-			embed = webhook.create_embed(
-				job_name, job_company, job_location, job_link, job_thumbnail)
-			webhook.send_embed(embed)
+		page_data = _get_chrome_page_data()
+
+		page_soup = BeautifulSoup(page_data, 'html.parser')
+		all_jobs_raw = page_soup.find_all('li', attrs={'class': 'ais-Hits-item'})
+
+		print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
+		for jobs in all_jobs_raw:
+			job_name = jobs.find('h4', attrs={'class': 'job-title'}).text.strip()
+			print('Job : ' + job_name)
+			job_company = jobs.find(
+				'li', attrs={'class': 'job-company'}).text.strip()
+			print('Company : ' + job_company)
+			job_location = jobs.find(
+				'li', attrs={'class': 'job-office'}).text.strip()
+			print('Location : ' + job_location)
+			job_link = 'https://jobs.stationf.co' + jobs.find(
+				'a', attrs={'class': 'jobs-item-link'}, href=True)['href']
+			print(job_link)
+			job_thumbnail = re.search("(?P<url>https?://[^\s]+)", jobs.find(
+				'div', attrs={'class': 'company-logo'})['style']).group("url")[:-2]
+			print(job_thumbnail)
+			print('\n')
+
+			if not is_url_in_database(job_link):
+				add_url_in_database(job_link)
+				embed = webhook.create_embed(
+					job_name, job_company, job_location, job_link, job_thumbnail)
+				webhook.send_embed(embed)
+		
+		sleep(3600)
 
 
 if __name__ == "__main__":
