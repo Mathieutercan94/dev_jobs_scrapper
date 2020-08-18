@@ -2,6 +2,8 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+import webhook
+import re
 
 from database import is_url_in_database, add_url_in_database
 
@@ -32,18 +34,24 @@ def main():
 
     print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
     for jobs in all_jobs_raw:
-        jobName = jobs.find('h4', attrs={'class': 'job-title'}).text.strip()
-        print('Job : ' + jobName)
-        jobCompany = jobs.find(
+        job_name = jobs.find('h4', attrs={'class': 'job-title'}).text.strip()
+        print('Job : ' + job_name)
+        job_company = jobs.find(
             'li', attrs={'class': 'job-company'}).text.strip()
-        print('Company : ' + jobCompany)
-        jobLocation = jobs.find(
+        print('Company : ' + job_company)
+        job_location = jobs.find(
             'li', attrs={'class': 'job-office'}).text.strip()
-        print('Location : ' + jobLocation)
-        jobLink = 'https://jobs.stationf.co' + jobs.find(
+        print('Location : ' + job_location)
+        job_link = 'https://jobs.stationf.co' + jobs.find(
             'a', attrs={'class': 'jobs-item-link'}, href=True)['href']
-        print(jobLink)
+        print(job_link)
+        job_thumbnail = re.search("(?P<url>https?://[^\s]+)", jobs.find(
+            'div', attrs={'class': 'company-logo'})['style']).group("url")[:-2]
+        print(job_thumbnail)
         print('\n')
+        embed = webhook.create_embed(
+            job_name, job_company, job_location, job_link, job_thumbnail)
+        webhook.send_embed(embed)
 
 
 if __name__ == "__main__":
