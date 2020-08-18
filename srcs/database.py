@@ -4,11 +4,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_USER = os.getenv('MONGO_USER')
-MONGO_PASS = os.getenv('MONGO_PASS')
-MONGO_DB_NAME = os.getenv('MONGO_DB_NAME')
+MONGO_URL = os.getenv('MONGO_URL')
 
-client = pymongo.MongoClient("mongodb+srv://{}:{}@stationfjobsscrapper.3wr5d.mongodb.net/jobs_database?retryWrites=true&w=majority".format(MONGO_USER, MONGO_PASS))
+client = pymongo.MongoClient(MONGO_URL)
 
 
 def is_url_in_database(url):
