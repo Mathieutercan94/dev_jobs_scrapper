@@ -6,7 +6,7 @@ import webhook
 import re
 
 from database import is_url_in_database, add_url_in_database
-from constants import CHROMEDRIVER_PATH
+from constants import CHROMEDRIVER_PATH, GOOGLE_CHROME_BIN
 
 def _get_chrome_page_data(url):
     """
@@ -15,7 +15,10 @@ def _get_chrome_page_data(url):
 
     options = Options()
     options.headless = True
+    options.binary_location = GOOGLE_CHROME_BIN
     options.add_argument("--window-size=1920,1200")
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
 
     driver = webdriver.Chrome(
         options=options, executable_path=CHROMEDRIVER_PATH)
