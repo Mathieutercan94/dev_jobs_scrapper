@@ -12,7 +12,7 @@ def _get_chrome_page_data(url):
     """
     Open the given url and returns the data on the page.
     """
-    
+
     options = Options()
     options.headless = True
     options.add_argument("--window-size=1920,1200")
@@ -51,7 +51,7 @@ def main():
         if len(all_jobs_raw) == 0:
             page = 1
             print('0 jobs on page {}, restarting from page 1'.format(page))
-            sleep(3600)
+            sleep(1800)
             continue
 
         print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
