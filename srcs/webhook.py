@@ -22,7 +22,8 @@ def send_embed(embed):
     Send an embed to the webhook specified in the .env file.
     """
 
-    webhook = DiscordWebhook(url=DISCORD_WEBHOOK)
+    webhook = DiscordWebhook(url=DISCORD_WEBHOOK, username='STATION F JOBS',
+                             avatar_url='https://mbem.fr/wp-content/uploads/2018/06/station-f-logo-copie.png')
 
     webhook.add_embed(embed)
     response = webhook.execute()
