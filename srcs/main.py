@@ -6,7 +6,7 @@ import webhook
 import re
 
 from database import is_url_in_database, add_url_in_database
-
+from constants import CHROMEDRIVER_PATH
 
 def _get_chrome_page_data(url):
     """
@@ -18,7 +18,7 @@ def _get_chrome_page_data(url):
     options.add_argument("--window-size=1920,1200")
 
     driver = webdriver.Chrome(
-        options=options, executable_path='/usr/local/bin/chromedriver')
+        options=options, executable_path=CHROMEDRIVER_PATH)
     driver.get(url)
     page_data = driver.page_source
     driver.implicitly_wait(3)
