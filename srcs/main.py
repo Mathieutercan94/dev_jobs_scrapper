@@ -55,7 +55,7 @@ def main():
         if len(all_jobs_raw) == 0:
             print('0 jobs on page {}, restarting from page 1'.format(page))
             page = 1
-            sleep(1800)
+            sleep(900)
             continue
 
         print("\nFound jobs ({}) :".format(len(all_jobs_raw)))
