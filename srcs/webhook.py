@@ -1,9 +1,5 @@
-import os
-from dotenv import load_dotenv
 from discord_webhook import DiscordWebhook, DiscordEmbed
-
-load_dotenv()
-DISCORD_WEBHOOK = os.getenv("WEBHOOK_URL")
+from constants import DISCORD_WEBHOOK
 
 
 def create_embed(job_name, job_company, job_location, job_link, job_thumbnail):

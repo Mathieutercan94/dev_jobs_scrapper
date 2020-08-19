@@ -39,18 +39,18 @@ def main():
 
         print("Running another iteration..")
 
-        URL = 'https://jobs.stationf.co/search?query=dev{}&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'.format(
+        url = 'https://jobs.stationf.co/search?query=dev{}&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'.format(
             '&page={}'.format(page) if page != 1 else '')
 
-        page_data = _get_chrome_page_data(URL)
+        page_data = _get_chrome_page_data(url)
 
         page_soup = BeautifulSoup(page_data, 'html.parser')
         all_jobs_raw = page_soup.find_all(
             'li', attrs={'class': 'ais-Hits-item'})
 
         if len(all_jobs_raw) == 0:
-            page = 1
             print('0 jobs on page {}, restarting from page 1'.format(page))
+            page = 1
             sleep(1800)
             continue
 

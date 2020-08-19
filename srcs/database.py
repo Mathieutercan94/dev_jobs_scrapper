@@ -1,10 +1,5 @@
 import pymongo
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-MONGO_URL = os.getenv('MONGO_URL')
+from constants import MONGO_URL
 
 client = pymongo.MongoClient(MONGO_URL)
 
