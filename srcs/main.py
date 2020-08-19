@@ -21,6 +21,7 @@ def _get_chrome_page_data(url):
         options=options, executable_path='/usr/local/bin/chromedriver')
     driver.get(url)
     page_data = driver.page_source
+    driver.implicitly_wait(3)
     driver.quit()
     return page_data
 
