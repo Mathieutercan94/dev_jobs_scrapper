@@ -23,8 +23,8 @@ def _get_chrome_page_data(url):
     driver = webdriver.Chrome(
         options=options, executable_path=CHROMEDRIVER_PATH)
     driver.get(url)
-    page_data = driver.page_source
     driver.implicitly_wait(3)
+    page_data = driver.page_source
     driver.quit()
     return page_data
 
