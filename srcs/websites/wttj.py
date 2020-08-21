@@ -32,7 +32,7 @@ class WTTJ(Website):
             all_jobs_raw = page_soup.find_all(
                 'article', attrs={'data-role': 'jobs:thumb'})
 
-            if len(all_jobs_raw) == 0 or page > 10:  # Scrap finished
+            if len(all_jobs_raw) == 0 or page > 6:  # Scrap finished
                 return
 
             print("\nWTTJ\'s found jobs ({}) :".format(len(all_jobs_raw)))
