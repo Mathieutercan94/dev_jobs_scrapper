@@ -2,9 +2,10 @@ from time import sleep
 
 from websites.stationf import StationF
 from websites.wttj import WTTJ
+from websites.jobteaser import JobTeaser
 
 SLEEP_TIME = 900
-WEBSITES_TO_SCRAP = [WTTJ(), StationF()]
+WEBSITES_TO_SCRAP = [WTTJ(), StationF(), JobTeaser()]
 
 
 def main():
