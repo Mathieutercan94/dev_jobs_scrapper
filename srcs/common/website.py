@@ -14,7 +14,6 @@ class Website:
         self.discord_avatar_url = discord_avatar_url
         self.should_scroll_page = should_scroll_page
 
-
     def _get_chrome_page_data(self, url):
         """
         Open the given url and returns the data on the page.
@@ -37,13 +36,13 @@ class Website:
         driver.get(url)
         if self.should_scroll_page:
             for _ in range(100):
-                driver.execute_script("window.scrollTo(0, window.scrollY + 200)")
+                driver.execute_script(
+                    "window.scrollTo(0, window.scrollY + 200)")
                 sleep(0.1)
-        driver.implicitly_wait(3)
+        sleep(8)
         page_data = driver.page_source
         driver.quit()
         return page_data
-
 
     def scrap(self):
         print("Scrap function is not implemented in website '{}'!".format(self.name))
