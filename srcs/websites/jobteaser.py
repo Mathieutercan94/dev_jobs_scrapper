@@ -42,8 +42,7 @@ class JobTeaser(Website):
                 print('Job : ' + job_name)
                 job_thumbnail = jobs.find(
                     'img', attrs={'alt': job_company})['src']
-                job_link = 'https://www.jobteaser.com' + jobs.parent.find('a', attrs={
-                    'href': re.compile('^\/en\/job-offers\/.*')})['href']
+                job_link = 'https://www.jobteaser.com' + jobs['href']
                 print('\n')
 
                 if not is_url_in_database(job_link):
