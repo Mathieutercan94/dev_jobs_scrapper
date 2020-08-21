@@ -2,7 +2,7 @@ import time
 import re
 from bs4 import BeautifulSoup
 
-import common.webhook
+from common.webhook import create_embed, send_embed
 from common.database import is_url_in_database, add_url_in_database
 from common.website import Website
 
@@ -12,6 +12,9 @@ class WTTJ(Website):
     def __init__(self):
         self.name = 'Welcome to the Jungle'
         self.url = 'https://www.welcometothejungle.com/fr/jobs?page={}&refinementList%5Bprofession_name.fr.Tech%5D%5B%5D=Dev+Fullstack&refinementList%5Bprofession_name.fr.Tech%5D%5B%5D=Dev+Backend&refinementList%5Bprofession_name.fr.Tech%5D%5B%5D=Dev+Frontend&refinementList%5Bprofession_name.fr.Tech%5D%5B%5D=Dev+Mobile&refinementList%5Bcontract_type_names.fr%5D%5B%5D=CDI&refinementList%5Bcontract_type_names.fr%5D%5B%5D=CDD+%2F+Temporaire&refinementList%5Bcontract_type_names.fr%5D%5B%5D=Freelance&aroundQuery=Paris%2C+France&aroundLatLng=48.85718%2C2.34141&aroundRadius=10000&sortBy=mostRecent'
+        self.discord_username = 'WTTJ JOBS'
+        self.discord_avatar_url = 'https://www.startupbegins.com/wp-content/uploads/2018/05/Logo-Welcome-to-the-Jungle.jpg'
+
 
     def scrap(self):
 
@@ -50,9 +53,9 @@ class WTTJ(Website):
                 if not is_url_in_database(job_link):
                     print("Found new job: {}".format(job_link))
                     add_url_in_database(job_link)
-                    embed = webhook.create_embed(
+                    embed = create_embed(
                         job_name, job_company, 'Paris', job_link, job_thumbnail)
-                    webhook.send_embed(embed)
+                    send_embed(embed, self)
                     time.sleep(4)
 
             print('WTTJ\'s page #{} finished'.format(page))

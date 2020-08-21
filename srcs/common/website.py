@@ -11,6 +11,7 @@ class Website:
         self.name = name
         self.url = url
 
+
     def _get_chrome_page_data(self, url):
         """
         Open the given url and returns the data on the page.
@@ -18,7 +19,7 @@ class Website:
 
         options = Options()
         options.headless = True
-        # options.binary_location = GOOGLE_CHROME_BIN
+        options.binary_location = GOOGLE_CHROME_BIN
         options.add_argument("--window-size=1920,1200")
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
@@ -33,6 +34,7 @@ class Website:
         page_data = driver.page_source
         driver.quit()
         return page_data
+
 
     def scrap(self):
         print("Scrap function is not implemented in website '{}'!".format(self.name))

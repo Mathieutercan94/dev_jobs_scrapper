@@ -17,13 +17,13 @@ def create_embed(job_name, job_company, job_location, job_link, job_thumbnail):
     return embed
 
 
-def send_embed(embed):
+def send_embed(embed, website):
     """
     Send an embed to the webhook specified in the .env file.
     """
 
-    webhook = DiscordWebhook(url=DISCORD_WEBHOOK, username='STATION F JOBS',
-                             avatar_url='https://mbem.fr/wp-content/uploads/2018/06/station-f-logo-copie.png')
+    webhook = DiscordWebhook(url=DISCORD_WEBHOOK, username=website.discord_username,
+                             avatar_url=website.discord_avatar_url)
 
     webhook.add_embed(embed)
     response = webhook.execute()

@@ -2,7 +2,7 @@ import time
 import re
 from bs4 import BeautifulSoup
 
-import common.webhook
+from common.webhook import create_embed, send_embed
 from common.database import is_url_in_database, add_url_in_database
 from common.website import Website
 
@@ -12,6 +12,8 @@ class StationF(Website):
     def __init__(self):
         self.name = 'Station F'
         self.url = 'https://jobs.stationf.co/search?query=dev{}&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'
+        self.discord_username = 'STATION F JOBS'
+        self.discord_avatar_url = 'https://mbem.fr/wp-content/uploads/2018/06/station-f-logo-copie.png'
 
     def scrap(self):
 
@@ -57,9 +59,9 @@ class StationF(Website):
 
                 if not is_url_in_database(job_link):
                     add_url_in_database(job_link)
-                    embed = webhook.create_embed(
+                    embed = create_embed(
                         job_name, job_company, job_location, job_link, job_thumbnail)
-                    webhook.send_embed(embed)
+                    send_embed(embed, self)
                     time.sleep(4)
 
             print('Station F\'s page #{} finished'.format(page))
