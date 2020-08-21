@@ -31,7 +31,6 @@ class JobTeaser(Website):
             all_jobs_raw = page_soup.find_all(
                 'a', attrs={'href': re.compile('^\/en\/job-offers\/.*')})
 
-            # print(all_jobs_raw)
             if len(all_jobs_raw) == 0:  # Scrap finished
                 return
 
