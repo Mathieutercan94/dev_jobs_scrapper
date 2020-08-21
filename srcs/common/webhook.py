@@ -1,5 +1,5 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
-from constants import DISCORD_WEBHOOK
+from common.constants import DISCORD_WEBHOOK
 
 
 def create_embed(job_name, job_company, job_location, job_link, job_thumbnail):
