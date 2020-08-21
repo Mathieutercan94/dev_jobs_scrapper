@@ -27,10 +27,10 @@ class Website:
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        options.addArguments("--disable-infobars")
-        options.addArguments("--disable-extensions")
-        options.addArguments("--disable-notifications")
-        options.addArguments("--disable-popup-blocking")
+        options.add_argument("--disable-infobars")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-popup-blocking")
 
         driver = webdriver.Chrome(
             options=options, executable_path=CHROMEDRIVER_PATH)

@@ -4,7 +4,7 @@ from websites.stationf import StationF
 from websites.wttj import WTTJ
 
 SLEEP_TIME = 900
-WEBSITES_TO_SCRAP = [StationF(), WTTJ()]
+WEBSITES_TO_SCRAP = [WTTJ(), StationF()]
 
 
 def main():
