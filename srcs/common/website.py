@@ -4,13 +4,13 @@ from time import sleep
 
 from common.constants import CHROMEDRIVER_PATH, GOOGLE_CHROME_BIN
 
+
 class Website:
 
     def __init__(self, name, url):
         self.name = name
         self.url = url
 
-    
     def _get_chrome_page_data(self, url):
         """
         Open the given url and returns the data on the page.
@@ -34,6 +34,5 @@ class Website:
         driver.quit()
         return page_data
 
-    
     def scrap(self):
         print("Scrap function is not implemented in website '{}'!".format(self.name))

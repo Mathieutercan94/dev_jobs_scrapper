@@ -23,9 +23,8 @@ def main():
             print("== SCRAPING {} ===".format(website.name))
             website.scrap()
             print("SCRAP OF {} FINISHED!\n".format(website.name))
-        
+
         sleep(SLEEP_TIME)
-      
 
 
 if __name__ == "__main__":
