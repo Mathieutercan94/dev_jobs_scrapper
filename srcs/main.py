@@ -20,9 +20,13 @@ def main():
 
         print("Running another iteration..")
         for website in WEBSITES_TO_SCRAP:
-            print("== SCRAPING {} ===".format(website.name))
-            website.scrap()
-            print("SCRAP OF {} FINISHED!\n".format(website.name))
+            try:
+                print("== SCRAPING {} ===".format(website.name))
+                website.scrap()
+                print("SCRAP OF {} FINISHED!\n".format(website.name))
+            except Exception as e:
+                print("Unable to scrap {}:".format(website.name))
+                print(e)
 
         sleep(SLEEP_TIME)
 
