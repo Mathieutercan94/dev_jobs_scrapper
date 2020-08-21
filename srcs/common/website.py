@@ -27,12 +27,16 @@ class Website:
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
+        options.addArguments("--disable-infobars")
+        options.addArguments("--disable-extensions")
+        options.addArguments("--disable-notifications")
+        options.addArguments("--disable-popup-blocking")
 
         driver = webdriver.Chrome(
             options=options, executable_path=CHROMEDRIVER_PATH)
         driver.get(url)
         if self.should_scroll_page:
-            for _ in range(20):
+            for _ in range(100):
                 driver.execute_script("window.scrollTo(0, window.scrollY + 200)")
                 sleep(0.1)
         driver.implicitly_wait(3)
