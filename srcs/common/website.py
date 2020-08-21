@@ -7,12 +7,12 @@ from common.constants import CHROMEDRIVER_PATH, GOOGLE_CHROME_BIN
 
 class Website:
 
-    def __init__(self, name, url, discord_username, discord_avatar_url):
+    def __init__(self, name, url, discord_username, discord_avatar_url, should_scroll_page):
         self.name = name
         self.url = url
         self.discord_username = discord_username
         self.discord_avatar_url = discord_avatar_url
-        self.should_scroll_page = False
+        self.should_scroll_page = should_scroll_page
 
 
     def _get_chrome_page_data(self, url):
@@ -31,7 +31,7 @@ class Website:
             options=options, executable_path=CHROMEDRIVER_PATH)
         driver.get(url)
         if self.should_scroll_page:
-            for _ in range(100):
+            for _ in range(20):
                 driver.execute_script("window.scrollTo(0, window.scrollY + 200)")
                 sleep(0.1)
         driver.implicitly_wait(3)

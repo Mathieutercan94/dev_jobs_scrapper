@@ -16,6 +16,7 @@ class WTTJ(Website):
         self.discord_avatar_url = 'https://www.startupbegins.com/wp-content/uploads/2018/05/Logo-Welcome-to-the-Jungle.jpg'
         self.should_scroll_page = True
 
+
     def scrap(self):
 
         page = 1

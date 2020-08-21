@@ -14,6 +14,8 @@ class StationF(Website):
         self.url = 'https://jobs.stationf.co/search?query=dev{}&departments%5B0%5D=Tech&departments%5B1%5D=Tech%20%26%20Dev&departments%5B2%5D=Tech%2FDev&departments%5B3%5D=Dev&contract_types%5B0%5D=Full-Time&contract_types%5B1%5D=Freelance&contract_types%5B2%5D=Temporary'
         self.discord_username = 'STATION F JOBS'
         self.discord_avatar_url = 'https://mbem.fr/wp-content/uploads/2018/06/station-f-logo-copie.png'
+        self.should_scroll_page = False
+
 
     def scrap(self):
 
