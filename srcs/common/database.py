@@ -1,8 +1,10 @@
-import pymongo
 from common.constants import MONGO_URL
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
-client = pymongo.MongoClient(MONGO_URL)
-
+# client = pymongo.MongoClient(MONGO_URL)
+uri = MONGO_URL
+client = MongoClient(uri, server_api=ServerApi('1'))
 
 def is_url_in_database(url):
 	"""
