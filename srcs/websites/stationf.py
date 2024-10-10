@@ -26,7 +26,7 @@ class StationF(Website):
         while True:
 
             print("Looking for another Station F\'s page..")
-
+            print('test')
             self.page_url = self.url.format(
                 '&page={}'.format(page) if page != 1 else '')
             self._init_driver(self.page_url)
@@ -35,7 +35,7 @@ class StationF(Website):
             all_jobs_raw = page_soup.find_all(
                 'li', attrs={'class': 'ais-Hits-item'})
 
-            if len(all_jobs_raw) == 0:  # Scrap finished
+            if len(all_jobs_raw) == 0 or page >= 2:  # Scrap finished
                 return
 
             print("\nStation F\'s found jobs ({}) :".format(len(all_jobs_raw)))

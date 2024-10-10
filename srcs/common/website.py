@@ -25,7 +25,7 @@ class Website:
     def _init_driver(self, url):
         service = Service()
         options = Options()
-        options.headless = False
+        options.headless = True 
         options.binary_location = GOOGLE_CHROME_BIN
         options.add_argument("--window-size=1920,1200")
         options.add_argument('--disable-gpu')

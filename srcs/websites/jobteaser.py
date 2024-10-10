@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from common.webhook import create_embed, send_embed
 from common.database import is_url_in_database, add_url_in_database
 from common.website import Website
-
+from urllib.parse import unquote
 
 class JobTeaser(Website):
 
@@ -51,10 +51,10 @@ class JobTeaser(Website):
             if job_ads_wrapper is None:
                 print("Job Teaser's page #{} has no job ads.".format(page))
                 return
-
+       
             # Find all jobs within the <ul> element
-            all_jobs_raw = job_ads_wrapper.find_all('li', {'data-testid': 'job_ad_item'})
-            if len(all_jobs_raw) == 0:  # Scrap finished
+            all_jobs_raw = job_ads_wrapper.find_all('div', {'data-testid': 'jobad-card'})
+            if len(all_jobs_raw) == 0 or page >= 2:  # Scrap finished
                 return
             print("\nJob Teaser\'s found jobs ({}) :".format(len(all_jobs_raw)))
             for jobs in all_jobs_raw:
@@ -63,15 +63,15 @@ class JobTeaser(Website):
                 job_name = jobs.find('p').text
                 print('Job : ' + job_name)
                 img_tag = jobs.find('img')
-                if img_tag:
-                    job_thumbnail = img_tag.get('src', None)
+                thumbnail = img_tag.get('src', None)
+                thumbnail = thumbnail.split("url=")
+                job_thumbnail = thumbnail[1]
                 job_link = 'https://www.jobteaser.com' + jobs.find('a')['href']
-                print('\n')
                 if not is_url_in_database(job_link):
                     print("Found new job: {}".format(job_link))
-                    add_url_in_database(job_link)
+                    add_url_in_database(job_name + job_company)
                     embed = create_embed(
-                        job_name, job_company, 'Paris', job_link, job_thumbnail)
+                        job_name, job_company, 'Paris', job_link, job_thumbnail = unquote(job_thumbnail))
                     send_embed(embed, self)
                     time.sleep(4)
 
